@@ -68,6 +68,7 @@ module.exports = ({ block, gcLock, preload, pin, options: constructorOptions }) 
    */
   async function * addAll (source, options) {
   //添加文件到ipfs
+    console.log("::::::addAll function start")
 
     options = options || {}
 
@@ -78,7 +79,6 @@ module.exports = ({ block, gcLock, preload, pin, options: constructorOptions }) 
       ...parseChunkerString(options.chunker)
     }
 
-    console.log("::::::addAll-opts",source,opts)
   /*
   shardSplitThreshold: 1000,
   trickle: false,
@@ -122,9 +122,13 @@ module.exports = ({ block, gcLock, preload, pin, options: constructorOptions }) 
         prog(total)
       }
     }
+
+    console.log("::::::pipe start ")
+
     const iterator = pipe(
       normaliseAddInput(source),//标准化输入，将所有数据转为文件对象
-      (source) =>{return importer(source, block, {
+      (source) =>{
+        return importer(source, block, {
         ...opts,
         pin: false //??????
       })},

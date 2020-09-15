@@ -11,7 +11,7 @@ module.exports = (command, ctxMiddleware) => {
   return new Promise((resolve, reject) => {
     try {
 
-      console.log("::::::parser start",command)
+      console.log("::::::parser command",command)
       parser
         .middleware(ctxMiddleware)
         .onFinishCommand((data) => {

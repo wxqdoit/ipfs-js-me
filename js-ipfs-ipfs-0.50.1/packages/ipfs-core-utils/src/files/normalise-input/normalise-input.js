@@ -11,6 +11,8 @@ const {
 } = require('./utils')
 
 module.exports = async function * normaliseInput (input, normaliseContent) {
+  /*input :  Object [AsyncGenerator] {}*/
+
   // must give us something
   //必须给我们一些东西 ....
   if (input === null || input === undefined) {
@@ -87,8 +89,9 @@ module.exports = async function * normaliseInput (input, normaliseContent) {
   throw errCode(new Error('Unexpected input: ' + typeof input), 'ERR_UNEXPECTED_INPUT')
 }
 
+/*转为文件对象*/
 async function toFileObject (input, normaliseContent) {
-  // console.log("::::::toFileObject",input)
+
   const obj = {
     path: input.path || '',
     mode: input.mode,
@@ -96,7 +99,7 @@ async function toFileObject (input, normaliseContent) {
   }
   if (input.content) {
     obj.content = await normaliseContent(input.content)
-  } else if (!input.path) { // Not already a file object with path or content prop
+  } else if (!input.path) { // Not already a file object with path or content prop 尚不是具有路径或内容属性的文件对象
     obj.content = await normaliseContent(input)
   }
 

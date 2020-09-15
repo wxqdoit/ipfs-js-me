@@ -141,7 +141,7 @@ module.exports = ({
 
     //将基本方法传进去 类似于桥接
     const addAll = Components.addAll({ block, preload, pin, gcLock, options: constructorOptions })
-    console.log("::::::Components.addAll",addAll)
+
 
     if (!isInitialized && !options.emptyRepo) {
       // add empty unixfs dir object (go-ipfs assumes this exists)

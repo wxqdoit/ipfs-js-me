@@ -154,7 +154,7 @@ function withTimeoutOption (fn, optionsArgIndex) {
 
 
     const options = args[optionsArgIndex == null ? args.length - 1 : optionsArgIndex]
-    console.log("::::::withTimeoutOption",...args,optionsArgIndex)
+    console.log("::::::withTimeoutOption")
     if (!options || !options.timeout) return fn(...args)
 
     const timeout = typeof options.timeout === 'string'

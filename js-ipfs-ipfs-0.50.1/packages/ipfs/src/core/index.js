@@ -101,6 +101,9 @@ const getDefaultOptions = () => ({
 // }
 
 async function create (options) {
+  console.time()
+  console.log("::::::ipfs create start at here")
+
   options = mergeOptions(getDefaultOptions(), options)
 
   // eslint-disable-next-line no-console
@@ -115,7 +118,6 @@ async function create (options) {
   }, async () => { throw new NotInitializedError() }) // eslint-disable-line require-await
 
   const initializedApi = options.init && await api.init()
-  console.log("::::::initialized",initializedApi.add)
   const startedApi = options.start && initializedApi && await initializedApi.start()
   /**
    * @template T, THEN, ELSE
@@ -126,6 +128,7 @@ async function create (options) {
   // @ts-ignore
   const ipfs = startedApi || initializedApi || api
 
+  console.log("::::::ipfs created")
 
   return ipfs
 }

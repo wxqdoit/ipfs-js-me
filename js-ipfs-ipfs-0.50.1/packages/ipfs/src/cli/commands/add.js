@@ -19,7 +19,7 @@ async function getTotalBytes (paths) {
   const sizes = await Promise.all(paths.map(p => {
     return getFolderSize(p)
   }));
-  console.log("::::::file-sizes",sizes,sizes.reduce((total, size) => total + size, 0))
+  console.log("::::::file-sizes-total",sizes,sizes.reduce((total, size) => total + size, 0))
   return sizes.reduce((total, size) => total + size, 0);
 }
 
@@ -193,6 +193,9 @@ module.exports = {
     mode,
     cidBase
   }) {
+
+    console.log("::::::cli `add` start at here",file)
+
     const options = {
       trickle,
       shardSplitThreshold,
@@ -213,6 +216,8 @@ module.exports = {
     if (options.enableShardingExperiment && isDaemon) {
       throw new Error('Error: Enabling the sharding experiment should be done on the daemon')
     }
+
+
 
     //控制台打印的进度条
     let bar
@@ -243,12 +248,6 @@ module.exports = {
         mtime.nsecs = mtimeNsecs
       }
     }
-    console.log("::::::file",file,{ recursive,
-      hidden,
-      preserveMode,
-      preserveMtime,
-      mode,
-      mtime})
 
 
     /*获取globSource 将文件/夹封装为所需对象 为文件上传做准备
@@ -259,6 +258,7 @@ module.exports = {
       *
       * Object [AsyncGenerator] {}
     * */
+    console.log("::::::globSource-path(files) to obj ",file)
     const source = file
       ? globSource(file, {
         recursive,
@@ -277,9 +277,7 @@ module.exports = {
     let finalCid
     try {
 
-
-      console.log("::::::addAll ",source, options)
-
+      console.log("::::::addAll entrance")
       for await (const added of ipfs.addAll(source, options)) {
 
         // 使用daemon启动后 不会再打印？？？

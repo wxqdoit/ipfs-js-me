@@ -83,7 +83,7 @@ const ipfsPathHelp = 'ipfs uses a repository in the local file system. By defaul
   'export IPFS_PATH=/path/to/ipfsrepo\n'
 
 async function getIpfs (argv) {
-
+  console.log("::::::Daemon status",isDaemonOn())
 
   if (!argv.api && !isDaemonOn()) {
     const ipfs = await IPFS.create({

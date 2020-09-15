@@ -50,7 +50,7 @@ async function main () {
     //这个地方cli：解析命令的参数，将ipfs的创建初始化作为中间软件传入，调用对应命令的代码
     // 如 传入 add 后掉用cli/add.js, 创建好的ipfs作为handler函数的参数传入
     const data = await cli(command, async (argv) => {
-      console.log("::::::ctxMiddleware run")
+      console.log("::::::ctxMiddleware run start")
       if (!['daemon', 'init'].includes(command[0])) {
         const { ipfs, isDaemon, cleanup } = await getIpfs(argv)
 
